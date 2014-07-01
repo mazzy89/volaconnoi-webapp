@@ -1,0 +1,15 @@
+
+<article class="container_12">
+    <aside class="grid_12">
+        <nav class="navOnTop">
+            <ul>
+                <li><a href="<c:url value='rates' />">Tariffe</a></li>
+                <li>/</li>
+                <li><a href="<c:url value='times' />">Orari voli</a></li>
+                <li>/</li>
+                <li><a href="<c:url value='airports' />">Aeroporti</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <div class="clear"></div>

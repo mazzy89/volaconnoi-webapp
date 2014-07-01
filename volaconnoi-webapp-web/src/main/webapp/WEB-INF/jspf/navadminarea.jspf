@@ -1,0 +1,10 @@
+
+<article class="container_12">
+    <aside class="grid_3 omega">
+        <nav class="nav_aside">
+            <ul>
+                <li><a href="<c:url value='addroute'/>">Programmazione voli</a></li>
+                <li><a href="<c:url value='showinforoutes'/>">Visualizza prenotazioni</a></li>
+            </ul>
+        </nav>
+    </aside>

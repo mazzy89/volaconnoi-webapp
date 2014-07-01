@@ -1,0 +1,23 @@
+<%-- 
+    Document   : footer
+    Created on : 7-giu-2014, 11.48.12
+    Author     : Mazzy
+--%>
+
+    <div class="clear"></div>
+    <div class="container_12">            
+    	<footer class="grid_12">
+            <img src="${pageContext.servletContext.contextPath}/resources/img/bar_footer.png">
+            &copy; 2014 All rights reserved by Salvatore Mazzarino for VolaConNoi.it
+	</footer>
+    </div>
+    
+    
+    <script src="${pageContext.servletContext.contextPath}/resources/js/toggle_function.js"></script>
+    <script src="//jquery-ui.googlecode.com/svn/tags/1.8.20/ui/i18n/jquery.ui.datepicker-it.js" ></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/js/calendar.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/js/pricer.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/js/checkin.js"></script>
+    
+    </body>
+</html>

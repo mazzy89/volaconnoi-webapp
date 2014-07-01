@@ -1,0 +1,24 @@
+
+<article class="container_12">
+    <aside class="grid_2 omega">
+        <nav class="nav_aside">
+            <ul>
+                <li id="reservation_toggle"><a>Prenotazioni</a></li>
+                    <ul id="reservation" class="nav_aside_nested">
+                        <li><a href="<c:url value='showreservations' />">Effettuate</a></li>
+                        <li><a href="<c:url value='cancelledreservations' />">Cancellate</a></li>
+                    </ul>
+                <li id="flights_toggle"><a>Voli</a></li>
+                    <ul id="flights" class="nav_aside_nested">
+                        <li><a href="<c:url value='flightsmade' />">Fatti</a></li>
+                        <li><a href="<c:url value='flightsrejected' />">Rinunciati</a></li>
+                    </ul>
+                <li id="data_user_toggle"><a>Dati Anagrafici</a></li>
+                    <ul id="data_user" class="nav_aside_nested">
+                        <li><a href="<c:url value='info' />">Visulizza</a></li>
+                        <li><a href="<c:url value='update' />">Aggiorna</a></li>
+                        <li><a href="<c:url value='remove' />">Cancella</a></li>
+                    </ul>
+            </ul>
+        </nav>
+    </aside>
