@@ -55,6 +55,15 @@ Physical Destination Name: bookingProcessorQueueReceiver
 
 Type: javax.jms.Queue
 
+In order to get a response from the MDB you have to add the following resource
+
+JNDI name: jms/bookingManagerQueueReceiver
+
+Type: javax.jms.Queue
+
+Physical Destination Name: bookingManagerQueueReceiver
+
+
 **JavaMail Session** (set using Gmail account)
 (used from the application to send booking confirmation to the client)
 
