@@ -15,10 +15,9 @@ import it.volaconnoi.logic.UtilBeanInterface;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.Remove;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -53,10 +52,16 @@ public class BookingManagerBean implements BookingManagerBeanInterface
     @Resource(mappedName = "jms/bookingProcessorQueueReceiver")
     private Queue bookingProcessorQueueReceiver;
     
-    private JMSProducer messageProducer = null;
-    private JMSConsumer messageConsumer = null;
+    private JMSProducer messageProducer;
+    private JMSConsumer messageConsumer;
         
     private Map<String,Object> map;
+    
+    @PostConstruct
+    public void createMapObject()
+    {
+        map = new HashMap<>();
+    }
           
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -93,9 +98,7 @@ public class BookingManagerBean implements BookingManagerBeanInterface
         TemporaryQueue tempQueue = context.createTemporaryQueue();
         
         messageConsumer = context.createConsumer(tempQueue);
-                
-        map = new HashMap<>();
-        
+                        
         map.put("reservation", (Reservation) messageData);
         map.put("used_points", (Integer) points);
                 
