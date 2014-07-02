@@ -17,5 +17,5 @@ import javax.ejb.Local;
 @Local
 public interface BookingManagerBeanInterface
 {    
-    public String purchase(Route r, UserCredential u, int passengers, int luggages, double price, int points);    
+    public String purchase(Route r, UserCredential u, int passengers, int luggages, double price, int points);        
 }

@@ -8,7 +8,7 @@
     <section class="grid_12">
         <div class="messageOnTop">
             <p>La prenotazione è stata effettuata con successo! Le abbiamo inviato una e-mail con la conferma della prenotazione.</p>
-            <p>Il PNR relativo alla sua prenotazione è ${id_route}.</p>    
+            <p>Il PNR relativo alla sua prenotazione è ${id_reservation}.</p>    
         </div>
     </section>
 </article>

@@ -17,7 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSConsumer;
@@ -27,13 +31,14 @@ import javax.jms.JMSProducer;
 import javax.jms.Message;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
+import javax.jms.TemporaryQueue;
 import javax.jms.TextMessage;
 
 /**
  *
  * @author Mazzy
  */
-@Stateful
+@Stateless
 public class BookingManagerBean implements BookingManagerBeanInterface
 {
     @EJB
@@ -47,34 +52,30 @@ public class BookingManagerBean implements BookingManagerBeanInterface
     
     @Resource(mappedName = "jms/bookingProcessorQueueReceiver")
     private Queue bookingProcessorQueueReceiver;
-    @Resource(mappedName = "jms/bookingManagerQueueReceiver")
-    private Queue bookingManagerQueueReceiver;
-
-    private Queue tempQueue;
     
     private JMSProducer messageProducer = null;
     private JMSConsumer messageConsumer = null;
-    
-    private String id_reservation = null;
-    
+        
     private Map<String,Object> map;
           
     @Override
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public String purchase(Route r, UserCredential u, int passengers, int  luggages, double price, int points)
-    {                         
+    {  
+        String id_reservation = null;
         Reservation reserv = reservationBean.addReservation(r, u, passengers, luggages, (float) price);
-        
+       
         try
-        {
-            sendMessageToBookingProcessorBean(reserv, points); // invia il messaggio contenente la prenotazione e il numero di punti utilizzati                             
-            receiveMessageFromBookingProcessorBean();
+        {            
+            sendMessageToBookingProcessorBean(reserv, points); // invia il messaggio contenente la prenotazione e il numero di punti utilizzati                                   
+            
+            id_reservation = receiveMessageFromBookingProcessorBean();
         }
         catch(JMSException jmse)
         {
-            System.err.println("An error occured " + jmse.toString());
             return (id_reservation);
         }
-        
+
         return id_reservation;
     }
     
@@ -88,8 +89,10 @@ public class BookingManagerBean implements BookingManagerBeanInterface
     private Message createMessageForBookingProcessorBean(Object messageData, int points) throws JMSException
     {              
         ObjectMessage msg = context.createObjectMessage();
-                
-        messageConsumer = context.createConsumer(bookingManagerQueueReceiver);
+        
+        TemporaryQueue tempQueue = context.createTemporaryQueue();
+        
+        messageConsumer = context.createConsumer(tempQueue);
                 
         map = new HashMap<>();
         
@@ -98,22 +101,18 @@ public class BookingManagerBean implements BookingManagerBeanInterface
                 
         msg.setObject((Serializable) map);
                
-        msg.setJMSReplyTo(bookingManagerQueueReceiver); //setta  la coda temporanea dove arriverà la risposta
+        msg.setJMSReplyTo(tempQueue); //setta  la coda temporanea dove arriverà la risposta
         msg.setJMSCorrelationID(utilBean.getRandomString()); //setta l'id 
         
         return msg;
     }
     
-    private void receiveMessageFromBookingProcessorBean() throws JMSException
+    private String receiveMessageFromBookingProcessorBean() throws JMSException
     {
-        Message msg = messageConsumer.receive(5000); //attendi 5 secondi se c'è un nuovo msg
-        
-        if(msg instanceof TextMessage)
-        {
-            TextMessage response = (TextMessage)msg;
-            
-            this.id_reservation = response.getText();
-        }
-    }
-    
+        Message msg = messageConsumer.receive();
+
+        TextMessage response = (TextMessage)msg;
+
+        return response.getText(); //ricevi indietro l'id
+    }  
 }

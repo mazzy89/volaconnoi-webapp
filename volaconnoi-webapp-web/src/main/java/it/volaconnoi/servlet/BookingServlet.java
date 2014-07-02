@@ -45,7 +45,8 @@ import org.apache.commons.lang3.StringUtils;
 })
 public class BookingServlet extends HttpServlet
 {
-    BookingManagerBeanInterface bookingBean = lookupBookingBeanLocal();
+    @EJB
+    BookingManagerBeanInterface bookingBean;
     @EJB
     private UtilBeanInterface utilBean;
     @EJB
@@ -190,7 +191,13 @@ public class BookingServlet extends HttpServlet
             
             if(id_committed_reservation != null)
             {                
-                request.setAttribute("id_route", id_committed_reservation);
+                request.setAttribute("id_reservation", id_committed_reservation);
+                
+                session.removeAttribute("user");
+                session.removeAttribute("route");
+                session.removeAttribute("passengers");
+                session.removeAttribute("luggages");
+                session.removeAttribute("price");
                 
                 request.getRequestDispatcher("/WEB-INF/view/booking/success.jsp").forward(request, response);
             }
@@ -212,17 +219,17 @@ public class BookingServlet extends HttpServlet
         return "Short description";
     }
 
-    private BookingManagerBeanInterface lookupBookingBeanLocal() 
-    {
-        try 
-        {
-            Context c = new InitialContext();
-            return (BookingManagerBeanInterface) c.lookup("java:global/volaconnoi-webapp-ear/volaconnoi-webapp-ejb-1.0-SNAPSHOT/BookingManagerBean!it.volaconnoi.logic.BookingManagerBeanInterface");
-        } 
-        catch (NamingException ne) 
-        {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
+//    private BookingManagerBeanInterface lookupBookingBeanLocal() 
+//    {
+//        try 
+//        {
+//            Context c = new InitialContext();
+//            return (BookingManagerBeanInterface) c.lookup("java:global/volaconnoi-webapp-ear/volaconnoi-webapp-ejb-1.0-SNAPSHOT/BookingManagerBean!it.volaconnoi.logic.BookingManagerBeanInterface");
+//        } 
+//        catch (NamingException ne) 
+//        {
+//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+//            throw new RuntimeException(ne);
+//        }
+//    }
 }

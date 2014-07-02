@@ -16,6 +16,7 @@ import it.volaconnoi.logic.SenderMailBeanInterface;
 import it.volaconnoi.logic.UserManagerBeanInterface;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Map;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -25,9 +26,11 @@ import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.JMSProducer;
+import javax.jms.JMSSessionMode;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import javax.jms.TemporaryQueue;
 import javax.jms.TextMessage;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
@@ -60,27 +63,24 @@ public class BookingProcessorBean implements MessageListener
     
     @Inject
     @JMSConnectionFactory("jms/reservationProcessorQueueFactory")
+    @JMSSessionMode(JMSContext.AUTO_ACKNOWLEDGE)
     private JMSContext context;
     
-    Reservation reserv = null;
-    
-    private HashMap<String, Object> map = null;
-    
-    int points;
-   
     @Override
     public void onMessage(Message message)
-    {                                  
+    {               
+        Reservation reserv = null;
+        
         try
         {       
             ObjectMessage om = (ObjectMessage) message;
-                        
-            map = (HashMap<String,Object>) om.getObject();
+            
+            Map<String, Object> map = (HashMap<String,Object>) om.getObject();
 
             reserv = (Reservation) map.get("reservation");
-            points = (Integer) map.get("used_points");
+            int points = (Integer) map.get("used_points");
             
-            System.out.println("Processing reservation...");
+            System.out.println("Initializing to Processing reservation...");
             
             UserCredential user = reserv.getUsername(); //estrae l'utente
 
@@ -97,7 +97,11 @@ public class BookingProcessorBean implements MessageListener
             
             senderMailBean.sendEmail(reserv);
             
-            sendIdReversationToBookingManagerBean(om.getJMSReplyTo(), reserv.getId(), om.getJMSCorrelationID()); //prende la destinazione temporanea ed il messaggio per la risposta
+            System.out.println("Commiting reservation " + reserv.getId() + "...");
+            
+            TemporaryQueue tempQueue = (TemporaryQueue) om.getJMSReplyTo();
+            
+            sendIdReversationToBookingManagerBean(tempQueue, reserv.getId(), om.getJMSCorrelationID()); //prende la destinazione temporanea ed il messaggio per la risposta
         }
         catch(UnsupportedEncodingException uee)
         {
@@ -112,7 +116,8 @@ public class BookingProcessorBean implements MessageListener
             System.err.println("An error occured during the processing of the booking " + reserv.getId());
         }
     }
-      
+     
+    
     private void storeInDb(Reservation r, UserCredential u, Route route)
     {        
         em.persist(r);
@@ -120,11 +125,11 @@ public class BookingProcessorBean implements MessageListener
         em.merge(route);
     }
     
-    private Message createMessageForBookingManagerBean(String id, String id_correlation) throws JMSException
+    private Message createMessageForBookingManagerBean(String id_reservation, String id_correlation) throws JMSException
     {
         TextMessage msg = context.createTextMessage();
         
-        msg.setText(id);
+        msg.setText(id_reservation);
         msg.setJMSCorrelationID(id_correlation);
         
         return msg;
@@ -133,7 +138,7 @@ public class BookingProcessorBean implements MessageListener
     private void sendIdReversationToBookingManagerBean(Destination ReceiverDestination, String id_reservation, String id_correlation) throws JMSException
     {
         JMSProducer messageProducer = context.createProducer();
-        
+                        
         messageProducer.send(ReceiverDestination, createMessageForBookingManagerBean(id_reservation, id_correlation));
     }
 }
