@@ -72,9 +72,9 @@ public class BookingManagerBean implements BookingManagerBeanInterface
        
         try
         {            
-            sendMessageToBookingProcessorBean(reserv, points); // invia il messaggio contenente la prenotazione e il numero di punti utilizzati                                   
+            sendMessageToBookingProcessorBean(reserv, points); // invia il messaggio contenente la prenotazione e gli eventuali numero di punti utilizzati                                   
             
-            id_reservation = receiveMessageFromBookingProcessorBean();
+            id_reservation = receiveMessageFromBookingProcessorBean(); //ricevi il PNR calcolato nel MDB
         }
         catch(JMSException jmse)
         {
@@ -105,7 +105,7 @@ public class BookingManagerBean implements BookingManagerBeanInterface
         msg.setObject((Serializable) map);
                
         msg.setJMSReplyTo(tempQueue); //setta  la coda temporanea dove arriverà la risposta
-        msg.setJMSCorrelationID(utilBean.getRandomString()); //setta l'id 
+        msg.setJMSCorrelationID(utilBean.getRandomString()); //setta il correlation id
         
         return msg;
     }

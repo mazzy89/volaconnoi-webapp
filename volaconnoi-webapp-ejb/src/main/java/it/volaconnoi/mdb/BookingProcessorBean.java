@@ -116,8 +116,7 @@ public class BookingProcessorBean implements MessageListener
             System.err.println("An error occured during the processing of the booking " + reserv.getId());
         }
     }
-     
-    
+        
     private void storeInDb(Reservation r, UserCredential u, Route route)
     {        
         em.persist(r);
