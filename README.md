@@ -5,16 +5,17 @@ volaconnoi-webapp
 
 The application has been deployed by using JDK 8.0 and Glassfish Server 4.0 (build 89) on a Mac OS X platform.
 
-In order to deploy and run it correctly on your machine you must install first of all JDK (possibly the latest current version 8.0) along with Glassfish Server 4.0. It could seem obvious and useless but you must be connected to internet as well in order to browse correctly the application since it uses some remote resources (Jquery, JqueryUI, ecc...). To enjoy a full web experience you have to enable Javascript in your web browser.
+In order to deploy and run it correctly on your machine, you must install JDK (the latest current version 8.0 since new Java Date and Time API have been used) along with Glassfish Server 4.0. It might seem obvious and useless but you must be connected to internet as well in order to browse correctly the application since it makes good use of some remote well-known resources (Jquery, JqueryUI, ecc...) to perform some features that improve the UX. Consequently to enjoy a full web experience you have to enable Javascript in your web browser.
 
-The project has been developed in Netbeans 8.0 IDE - Java EE version. It comes with Glassfish bundled but you are free to choose to not install it during the installation procedure and download the stand-alone version of glassfish directly from official glassfish page.
+The project has been developed in Netbeans 8.0 IDE - Java EE version. It comes with Glassfish bundled but you are free to choose to not install it during the installation procedure and download the stand-alone version of Glassfish directly from the official Glassfish's web page.
 
 Maven dependecies managament has been used in order to manage dependencies coming from external libraries. The external libraries have been used to develop important features of the application. For this reason you must have installed Maven in your machine. Anyway it comes already installed in Netbeans 8.0 IDE. Before to run properly the project in your machine, remember to  right-click on Maven project and choose "Build with dependencies". Only after that, you will be ready to run it correctly.
 
-The model tier has been developed using MySQL database version 5.5.34 which come installed inside the latest current version of MAMP (3.0.5).
-
+The model tier has been developed using MySQL database version 5.5.34 which come installed along with the latest current version of MAMP (3.0.5).
 
 <h5>Glassfish Resources</h5>
+
+<h6>Here below all the resources that you have to add through GlassFish Admin Console in order to deploy correctly the web application</h6>
 
 **JDBC connections Pools**
 

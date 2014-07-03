@@ -23,7 +23,6 @@ public class PricerBean implements PricerBeanInterface
     @PersistenceContext
     private EntityManager em;
     
-    
     @Override
     public float calculatePriceByPassenger(int passengers, int luggages, float price)
     {
@@ -44,7 +43,7 @@ public class PricerBean implements PricerBeanInterface
     }
     
     /**
-     * Calcola il prezzo scontato con l'appliczione dei punti fedeltà
+     * Calcola il prezzo scontato con l'applicazione dei punti fedeltà
      * 
      * @param price
      * @param points
@@ -55,13 +54,13 @@ public class PricerBean implements PricerBeanInterface
     {
         float discount = 0.1f; //sconto 10%
 		
-        int iter = (int) points / 50; //10% ogni 50 punti
+        int iter = (int) points / 50; //10% di sconto ogni 50 punti utilizzati
 				
         for (int i = 0; i < iter; i++) 
         {
             price = price*(1 - discount);
         }
         
-        return (float)price;
+        return (float) price;
     }
 }
