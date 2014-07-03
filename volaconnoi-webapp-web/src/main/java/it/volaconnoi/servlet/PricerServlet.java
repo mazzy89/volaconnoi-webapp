@@ -61,6 +61,7 @@ public class PricerServlet extends HttpServlet
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(price_update);   
+            response.getWriter().flush();
         }
         
         if(userPath.equals("/fidelity"))
@@ -74,6 +75,7 @@ public class PricerServlet extends HttpServlet
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(price_update);
+            response.getWriter().flush();
         }
     }
 

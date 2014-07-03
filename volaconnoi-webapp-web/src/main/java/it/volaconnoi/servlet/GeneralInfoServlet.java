@@ -82,7 +82,8 @@ public class GeneralInfoServlet extends HttpServlet
             
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(gson.toJson(list));         
+            response.getWriter().write(gson.toJson(list)); 
+            response.getWriter().flush();         
         }    
         
         if(userPath.equals("/info/getairportbyname"))
@@ -95,7 +96,8 @@ public class GeneralInfoServlet extends HttpServlet
             
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(gson.toJson(list));  
+            response.getWriter().write(gson.toJson(list));
+            response.getWriter().flush();
         }
         
         if(userPath.equals("/info/rates"))
@@ -126,7 +128,8 @@ public class GeneralInfoServlet extends HttpServlet
             
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(gson.toJson(list));    
+            response.getWriter().write(gson.toJson(list));   
+            response.getWriter().flush();
         }
         
         if(userPath.equals("/info/getroutestimes"))
@@ -141,6 +144,7 @@ public class GeneralInfoServlet extends HttpServlet
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(gson.toJson(route_list));    
+            response.getWriter().flush();
         }
     }
 

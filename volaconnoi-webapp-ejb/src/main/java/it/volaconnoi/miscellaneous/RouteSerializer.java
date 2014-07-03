@@ -38,7 +38,7 @@ public class RouteSerializer implements JsonSerializer<Route>
     
     private String dateToString(Date d)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         
         return sdf.format(d);
         

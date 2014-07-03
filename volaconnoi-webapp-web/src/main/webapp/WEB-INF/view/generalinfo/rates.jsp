@@ -10,6 +10,8 @@
         
         <h4>Le tariffe di VolaConNoi.it</h4>
         
+        <c:if test="${!empty city_airport_lowest}">
+        
         <h6>Vola da:</h6>
         
         <div>
@@ -23,6 +25,7 @@
             
         </div>
         
+        </c:if>
         
     </section>
     

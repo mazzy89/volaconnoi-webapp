@@ -151,7 +151,8 @@ public class UserManagerBean implements UserManagerBeanInterface
     @Override
     public void removeUser(String username)
     {
-        em.remove(getUserByUsername(username));        
+        em.remove(getUserByUsername(username));
+        em.flush();
     }
     
     @Override

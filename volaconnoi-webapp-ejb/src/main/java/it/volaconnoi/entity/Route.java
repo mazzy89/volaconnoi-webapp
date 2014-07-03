@@ -1,7 +1,6 @@
 
 package it.volaconnoi.entity;
 
-import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
