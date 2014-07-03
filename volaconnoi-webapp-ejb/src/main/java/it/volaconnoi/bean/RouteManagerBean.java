@@ -11,6 +11,7 @@ import it.volaconnoi.entity.Route;
 import it.volaconnoi.logic.AirportFacadeLocal;
 import it.volaconnoi.logic.RouteManagerBeanInterface;
 import it.volaconnoi.logic.UtilBeanInterface;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -100,14 +101,16 @@ public class RouteManagerBean implements RouteManagerBeanInterface
     public List<Route> getRoutesByInputParameters(String source, String destination, String date, String travel_class, String date_flexi)
     {
         TypedQuery<Route> query = em.createNamedQuery("Route.findByInputParameters", Route.class);
-        
+                        
         List<Route> routes_list = query
                                        .setParameter("source", StringUtils.trim(WordUtils.capitalizeFully(source)))
                                        .setParameter("dest", StringUtils.trim(WordUtils.capitalizeFully(destination)))
-                                       .setParameter("startDate", utilBean.getFormattedDate(date, "00", "00", !StringUtils.isNotEmpty(date_flexi) ? 0 : -2), TemporalType.TIMESTAMP)
+                                       .setParameter("startDate", utilBean.getFormattedDate(date, "00", "00", !StringUtils.isNotEmpty(date_flexi) ? 0 : +2), TemporalType.TIMESTAMP)
                                        .setParameter("endDate", utilBean.getFormattedDate(date, "23", "59", !StringUtils.isNotEmpty(date_flexi) ? 0 : +2), TemporalType.TIMESTAMP)
                                        .setParameter("travel_class", travel_class)
                                        .getResultList();
+        
+                                       //la flessibilità si intende due giorni avanti la data inserita dall'utente
 
         return routes_list;
     }

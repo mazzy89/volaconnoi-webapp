@@ -29,7 +29,7 @@
                             <td>${route.aircraft_id}</td>
                             <td><strong>${route.airport_city_source.city} (${route.airport_city_source.iata_faa_code})</strong></td>
                             <td><strong>${route.airport_city_dest.city} (${route.airport_city_dest.iata_faa_code})</strong></td>
-                            <td><span style="font-weight: 600"><fmt:formatDate value="${route.departure_date}" pattern="dd/MM/yyyy hh:mm"/></span></td>
+                            <td><span style="font-weight: 600"><fmt:formatDate type="both" value="${route.departure_date}" pattern="dd/MM/yyyy HH:mm"/></span></td>
                             <td>${duration_list[iter.index]} h</td>
                             <td>${route.travel_class}</td>
                             <td><strong><fmt:formatNumber type="currency"

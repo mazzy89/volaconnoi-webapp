@@ -5,7 +5,7 @@
                 <form action="result" method="GET">
                     <div class="grid_3 alpha omega left_search">
                         <input type="text" name="source" placeholder="Partenza da"><br/><br/>
-                        <input type="text" class="from" name="from" placeholder="Data partenza"><br/><br/>
+                        <input type="text" id="depdatepicker" name="from" placeholder="Data partenza"><br/><br/>
                         <input type="submit" value="Cerca">
                     </div>
                     <div class="grid_3 alpha right_search">

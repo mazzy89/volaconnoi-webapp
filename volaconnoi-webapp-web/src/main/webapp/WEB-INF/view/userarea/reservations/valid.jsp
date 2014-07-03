@@ -5,7 +5,9 @@
 --%>
 
 <section class="grid_10 area_principal">
+    
     <h4>Le tue prenotazioni</h4>
+    
     <div class="body_area_principal">
         <c:choose>
             <c:when test="${!empty reservations_user_valid}">
@@ -29,8 +31,8 @@
                             <td>${reserv.route.aircraft_id}</td>
                             <td>${reserv.route.airport_city_source.city} (${reserv.route.airport_city_source.name})</td>
                             <td>${reserv.route.airport_city_dest.city} (${reserv.route.airport_city_dest.name})</td>
-                            <td><fmt:formatDate value="${reserv.route.departure_date}" pattern="dd/MM/yyyy hh:mm"/></td>
-                            <td><fmt:formatDate value="${reserv.route.arrival_date}" pattern="dd/MM/yyyy hh:mm"/></td>
+                            <td><fmt:formatDate value="${reserv.route.departure_date}" pattern="dd/MM/yyyy HH:mm"/></td>
+                            <td><fmt:formatDate value="${reserv.route.arrival_date}" pattern="dd/MM/yyyy HH:mm"/></td>
                             <td>${reserv.passengers}</td>
                             <td>${reserv.luggages}</td>
                             <td><a href="<c:url value="cancel?id=${reserv.id}"/>">Cancella</td>

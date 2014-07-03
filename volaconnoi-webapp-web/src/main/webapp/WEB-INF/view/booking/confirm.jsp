@@ -16,8 +16,8 @@
             <p><strong>Compagnia:</strong> ${route.airlane}</p>
             <p><strong>Partenza da: </strong> ${route.airport_city_source.city}</p>
             <p><strong>Arrivo a:</strong> ${route.airport_city_dest.city}</p>
-            <p><strong>Ora partenza:</strong> <fmt:formatDate value="${route.departure_date}" pattern="dd/MM/yyyy hh:mm"/></p>
-            <p><strong>Ora arrivo:</strong> <fmt:formatDate value="${route.arrival_date}" pattern="dd/MM/yyyy hh:mm"/></p>
+            <p><strong>Ora partenza:</strong> <fmt:formatDate value="${route.departure_date}" pattern="dd/MM/yyyy HH:mm"/></p>
+            <p><strong>Ora arrivo:</strong> <fmt:formatDate value="${route.arrival_date}" pattern="dd/MM/yyyy HH:mm"/></p>
             <p><strong>Prezzo: </strong><span id="price_final"><fmt:formatNumber type="currency" 
             value="${price}" pattern="####.##" /></span> &euro;</p>
 

@@ -7,7 +7,6 @@
 package it.volaconnoi.logic;
 
 
-import it.volaconnoi.entity.Airport;
 import it.volaconnoi.entity.Reservation;
 import it.volaconnoi.entity.Route;
 import java.util.List;

@@ -28,8 +28,8 @@
                             <td>${flights.route.aircraft_id}</td>
                             <td>${flights.route.airport_city_source.city}</td>
                             <td>${flights.route.airport_city_dest.city}</td>
-                            <td><fmt:formatDate value="${flights.route.departure_date}" pattern="dd/MM/yyyy hh:mm"/></td>
-                            <td><fmt:formatDate value="${flights.route.arrival_date}" pattern="dd/MM/yyyy hh:mm"/></td>
+                            <td><fmt:formatDate value="${flights.route.departure_date}" pattern="dd/MM/yyyy HH:mm"/></td>
+                            <td><fmt:formatDate value="${flights.route.arrival_date}" pattern="dd/MM/yyyy HH:mm"/></td>
                             <td>${flights.passengers}</td>
                             <td>${flights.route.travel_class}</td>
                         </tr>
