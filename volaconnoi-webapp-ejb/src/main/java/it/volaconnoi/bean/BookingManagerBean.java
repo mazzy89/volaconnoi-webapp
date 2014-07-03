@@ -56,25 +56,26 @@ public class BookingManagerBean implements BookingManagerBeanInterface
     private JMSConsumer messageConsumer;
         
     private Map<String,Object> map;
+    private String id_reservation;
     
     @PostConstruct
     public void createMapObject()
     {
         map = new HashMap<>();
+        id_reservation = new String();  
     }
           
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public String purchase(Route r, UserCredential u, int passengers, int  luggages, double price, int points)
     {  
-        String id_reservation = null;
         Reservation reserv = reservationBean.addReservation(r, u, passengers, luggages, (float) price);
        
         try
         {            
             sendMessageToBookingProcessorBean(reserv, points); // invia il messaggio contenente la prenotazione e gli eventuali numero di punti utilizzati                                   
             
-            id_reservation = receiveMessageFromBookingProcessorBean(); //ricevi il PNR calcolato nel MDB
+            id_reservation = receiveMessageFromBookingProcessorBean(); //ricevi il PNR generato nel MDB dal MDB
         }
         catch(JMSException jmse)
         {
@@ -95,7 +96,7 @@ public class BookingManagerBean implements BookingManagerBeanInterface
     {              
         ObjectMessage msg = context.createObjectMessage();
         
-        TemporaryQueue tempQueue = context.createTemporaryQueue();
+        TemporaryQueue tempQueue = context.createTemporaryQueue(); //genera una destinazione temporanea
         
         messageConsumer = context.createConsumer(tempQueue);
                         
@@ -114,7 +115,7 @@ public class BookingManagerBean implements BookingManagerBeanInterface
     {
         Message msg = messageConsumer.receive();
 
-        TextMessage response = (TextMessage)msg;
+        TextMessage response = (TextMessage) msg;
 
         return response.getText(); //ricevi indietro l'id
     }  

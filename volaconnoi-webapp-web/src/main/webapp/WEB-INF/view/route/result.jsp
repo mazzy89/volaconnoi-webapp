@@ -12,15 +12,25 @@
         <c:choose>
             <c:when test="${!empty routes_list}">
                 <table class="show_reservations">
+                    <tr>
+                        <th>Compagnia</th>
+                        <th>ID Aereomobile </th>
+                        <th>Partenza</th>
+                        <th>Arrivo</th>
+                        <th>Ora partenza</th>
+                        <th>Durata</th>
+                        <th>Classe</th>
+                        <th>Prezzo</th>
+                    </tr>
                     <c:forEach items="${routes_list}" var="route" varStatus="iter">
                         <tr class="tableRow"
                             onclick="document.location.href='${pageContext.servletContext.contextPath}/booking?id=${route.id_route}'">
                             <td>${route.airlane}</td>
                             <td>${route.aircraft_id}</td>
-                            <td><strong>${route.airport_city_source.city} (${route.airport_city_source.name})</strong></td>
-                            <td><strong>${route.airport_city_dest.city} (${route.airport_city_dest.name})</strong></td>
-                            <td><fmt:formatDate value="${route.departure_date}" pattern="dd/MM/yyyy hh:mm"/></td>
-                            <td><fmt:formatDate value="${route.arrival_date}" pattern="dd/MM/yyyy hh:mm"/></td>
+                            <td><strong>${route.airport_city_source.city} (${route.airport_city_source.iata_faa_code})</strong></td>
+                            <td><strong>${route.airport_city_dest.city} (${route.airport_city_dest.iata_faa_code})</strong></td>
+                            <td><span style="font-weight: 600"><fmt:formatDate value="${route.departure_date}" pattern="dd/MM/yyyy hh:mm"/></span></td>
+                            <td>${duration_list[iter.index]} h</td>
                             <td>${route.travel_class}</td>
                             <td><strong><fmt:formatNumber type="currency"
                                           currencySymbol="&euro;"

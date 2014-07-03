@@ -48,6 +48,9 @@ public interface UtilBeanInterface
     public double rad2deg(double rad);
     
     public String dateToString(Date d);
+   
+    public long calculateDurationBeetweenDates(Date d1, Date d2);
+
     
     public String getRandomString();
 }

@@ -18,12 +18,7 @@ import it.volaconnoi.logic.UserManagerBeanInterface;
 import it.volaconnoi.logic.UtilBeanInterface;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -185,11 +180,11 @@ public class BookingServlet extends HttpServlet
             id_committed_reservation = bookingBean.purchase((Route) session.getAttribute("route"), 
                                                             (UserCredential) session.getAttribute("user"), 
                                                             (Integer) session.getAttribute("passengers"), 
-                                                  (Integer) session.getAttribute("luggages"), 
+                                                            (Integer) session.getAttribute("luggages"), 
                                                             final_price,
                                                             Integer.parseInt(points));
             
-            if(id_committed_reservation != null)
+            if(StringUtils.isNotEmpty(id_committed_reservation))
             {                
                 request.setAttribute("id_reservation", id_committed_reservation);
                 

@@ -102,14 +102,27 @@ public class RouteManagerBean implements RouteManagerBeanInterface
         TypedQuery<Route> query = em.createNamedQuery("Route.findByInputParameters", Route.class);
         
         List<Route> routes_list = query
-                               .setParameter("source", StringUtils.trim(WordUtils.capitalizeFully(source)))
-                               .setParameter("dest", StringUtils.trim(WordUtils.capitalizeFully(destination)))
-                               .setParameter("startDate", utilBean.getFormattedDate(date, "00", "00", !StringUtils.isNotEmpty(date_flexi) ? 0 : -2), TemporalType.TIMESTAMP)
-                               .setParameter("endDate", utilBean.getFormattedDate(date, "23", "59", !StringUtils.isNotEmpty(date_flexi) ? 0 : +2), TemporalType.TIMESTAMP)
-                               .setParameter("travel_class", travel_class)
-                               .getResultList();
+                                       .setParameter("source", StringUtils.trim(WordUtils.capitalizeFully(source)))
+                                       .setParameter("dest", StringUtils.trim(WordUtils.capitalizeFully(destination)))
+                                       .setParameter("startDate", utilBean.getFormattedDate(date, "00", "00", !StringUtils.isNotEmpty(date_flexi) ? 0 : -2), TemporalType.TIMESTAMP)
+                                       .setParameter("endDate", utilBean.getFormattedDate(date, "23", "59", !StringUtils.isNotEmpty(date_flexi) ? 0 : +2), TemporalType.TIMESTAMP)
+                                       .setParameter("travel_class", travel_class)
+                                       .getResultList();
 
         return routes_list;
+    }
+    
+    @Override
+    public List<Long> getDurationRoutes(List<Route> routesList)
+    {
+        List<Long> durations = new LinkedList<>();
+        
+        for(Route r : routesList)
+        {
+            durations.add(utilBean.calculateDurationBeetweenDates(r.getDeparture_date(), r.getArrival_date()));
+        }
+        
+        return durations;
     }
     
     /**

@@ -24,8 +24,8 @@
             
             <section class="grid_12 area_principal">
                 <h4>Info volo ${route.aircraft_id} - 
-                    Da: ${route.airport_city_source.city} 
-                    A: ${route.airport_city_dest.city} 
+                    Da: ${route.airport_city_source.city} (${route.airport_city_source.iata_faa_code})
+                    A: ${route.airport_city_dest.city} (${route.airport_city_dest.iata_faa_code})
                     del <fmt:formatDate value="${route.departure_date}" pattern="dd/MM/yyyy"/> 
                     ore <fmt:formatDate value="${route.departure_date}" pattern="hh:mm"/></h4>
                 <div class="body_area_principal">

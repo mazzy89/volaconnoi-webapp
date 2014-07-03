@@ -10,9 +10,12 @@ import it.volaconnoi.entity.Reservation;
 import it.volaconnoi.entity.Route;
 import it.volaconnoi.entity.UserCredential;
 import it.volaconnoi.logic.ReservationManagerBeanInterface;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
@@ -35,6 +38,7 @@ public class ReservationManagerBean implements ReservationManagerBeanInterface
         reserv.setLuggages(luggages);
         reserv.setPrice(price);
         reserv.setCancelled(false);
+        reserv.setDate_reservation(new Date());
         
         reserv.setUsername(u);
         reserv.setRoute(r);
@@ -55,10 +59,14 @@ public class ReservationManagerBean implements ReservationManagerBeanInterface
     } 
        
     @Override
-    public Reservation getValidReservation(String id_reservation)
+    public List<Reservation> getValidReservation(String id_reservation)
     {        
-        Reservation r = em.find(Reservation.class, id_reservation);
+        TypedQuery<Reservation> query = em.createNamedQuery("Reservation.findValidReservation", Reservation.class);
         
-        return r;
+        return query
+                    .setParameter("id_reservation", id_reservation)
+                    .setParameter("status", false)
+                    .setMaxResults(1)
+                    .getResultList();
     }
 }

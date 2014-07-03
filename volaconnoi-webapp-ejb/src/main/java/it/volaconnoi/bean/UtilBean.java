@@ -7,6 +7,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.Calendar;
@@ -317,7 +322,7 @@ public class UtilBean implements UtilBeanInterface
 
         return (dist);
     }
-
+    
     @Override
     public double deg2rad(double deg)
     {
@@ -336,6 +341,17 @@ public class UtilBean implements UtilBeanInterface
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         
         return(sdf.format(d));      
+    }
+    
+    @Override
+    public long calculateDurationBeetweenDates(Date d1, Date d2)
+    {
+        Instant d1_instant = Instant.ofEpochMilli(d1.getTime());
+        Instant d2_instant = Instant.ofEpochMilli(d2.getTime());
+        
+        Duration between = Duration.between(d1_instant, d2_instant);
+        
+        return between.toHours();
     }
 
     @Override

@@ -66,7 +66,8 @@ public class RouteServlet extends HttpServlet
                                                                                   travel_class,
                                                                                   date_flexi);
             
-            request.setAttribute("routes_list", routes_list);
+            request.setAttribute("routes_list", routes_list); 
+            request.setAttribute("duration_list", routeManagerBean.getDurationRoutes(routes_list));
             
             request.getRequestDispatcher("/WEB-INF/view/route/result.jsp").forward(request, response);
         }

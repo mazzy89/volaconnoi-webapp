@@ -11,6 +11,7 @@ import it.volaconnoi.entity.Reservation;
 import it.volaconnoi.logic.CheckInFacadeLocal;
 import it.volaconnoi.logic.ReservationManagerBeanInterface;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -75,11 +76,11 @@ public class CheckInServlet extends HttpServlet
     {
         String reserv_id = request.getParameter("reserv_id");
                         
-        Reservation reserv = reservationBean.getValidReservation(StringUtils.upperCase(reserv_id));
+        List<Reservation> reserv = reservationBean.getValidReservation(StringUtils.upperCase(reserv_id));
         
-        if(reserv!= null)
+        if(reserv != null)
         {
-            request.setAttribute("reserv", reserv);
+            request.setAttribute("reserv", reserv.get(0));
         }
         else
         {

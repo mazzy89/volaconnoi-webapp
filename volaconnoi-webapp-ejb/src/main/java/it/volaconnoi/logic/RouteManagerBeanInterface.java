@@ -41,6 +41,8 @@ public interface RouteManagerBeanInterface
     
     public List<Route> getRoutesByInputParameters(String source, String destination, String date, String travel_class, String date_flexi);
     
+    public List<Long> getDurationRoutes(List<Route> routesList);
+    
     public void updateSeatsRoute(Reservation reserv);
    
     public Map<String,Float> getCityAirportByLowestRate();

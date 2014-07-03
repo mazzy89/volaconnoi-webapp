@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 @Table(name = "RESERVATION")
 @NamedQueries(
 {
-    @NamedQuery(name = "Reservation.findValidReservation", query = "SELECT r FROM Reservation r WHERE r.id_reservation = :id_reservation"),
+    @NamedQuery(name = "Reservation.findValidReservation", query = "SELECT r FROM Reservation r WHERE r.id_reservation = :id_reservation AND r.cancelled = :status"),
     @NamedQuery(name = "Reservation.findReservationIfCheckedIn", query = "SELECT r FROM Reservation r WHERE r.user.username = :username AND "
                                                                                                                                 + "r.id_reservation IN (SELECT c.id "
                                                                                                                                                      + "FROM CheckIn c)"
@@ -43,7 +43,7 @@ public class Reservation implements Serializable
     @Column(name = "PRICE", nullable = false)
     private float price;
     
-    @Column(name = "DATE_PLACED", insertable = false, updatable = false)
+    @Column(name = "DATE_PLACED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date_reservation;
     

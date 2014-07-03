@@ -9,6 +9,7 @@ package it.volaconnoi.logic;
 import it.volaconnoi.entity.Reservation;
 import it.volaconnoi.entity.Route;
 import it.volaconnoi.entity.UserCredential;
+import java.util.List;
 
 /**
  *
@@ -20,5 +21,5 @@ public interface ReservationManagerBeanInterface
     
     public String generateIDReservation();
     
-    public Reservation getValidReservation(String id_reserv);
+    public List<Reservation> getValidReservation(String id_reserv);
 }

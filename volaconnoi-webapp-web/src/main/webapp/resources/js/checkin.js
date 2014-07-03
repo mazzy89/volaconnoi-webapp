@@ -13,7 +13,7 @@ $("#checkinRow").click(function(e){
     $.get("CheckinConfirm", {reservId: reservId}, function(){
        
         $("#successCheckin").addClass("messageOnTop")
-                            .append("Il Checkin relativo alla prenotazione " + reservId +  " \350 stato effettuato!");
+                            .append("Il Check-in relativo alla prenotazione " + reservId +  " \350 stato effettuato!");
         
     });
     
