@@ -151,7 +151,7 @@ Error An error has occurred
 Ping Connection Pool failed for name-pool. Class name is wrong or classpath is not set for: com.mysql.jdbc.jdbc2.optional.MysqlDataSource Please check the server.log for more details.
 ```
 
-you have to download mysql connector and put on your glassfish lib folder.
+you have to download mysql connector and put inside your glassfish lib folder.
 
 
 
