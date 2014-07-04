@@ -18,8 +18,8 @@
                         <th>ID Veivolo</th>
                         <th>Partenza</th>
                         <th>Arrivo</th>
-                        <th>Ora partenza (ora locale)</th>
-                        <th>Ora arrivo (ora locale)</th>
+                        <th>Ora partenza <br/>(ora locale)</th>
+                        <th>Ora arrivo <br/>(ora locale)</th>
                         <th>Passeggeri</th>
                         <th>Bagagli</th>
                         <th>Cancella</th>

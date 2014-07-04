@@ -84,7 +84,7 @@ public class BookingProcessorBean implements MessageListener
             
             UserCredential user = reserv.getUsername(); //estrae l'utente
 
-            user.getReservationsList().add(reserv); //aggiunge la reservation nella lista delle reservation dell'utente
+            //user.getReservationsList().add(reserv); //aggiunge la reservation nella lista delle reservation dell'utente
             
             userManagerBean.updateFidelityPoints(user, points); //aggiorna i punti fedeltà qualora l'utente ne abbia fatto uso
             userManagerBean.addFidelityPoints(user, getterFidelityPointsBean.getFidelityPointsByRoute(reserv.getRoute())); //assegna i punti fedeltà
